@@ -21,6 +21,10 @@ function App() {
     return str.replace( /(<([^>]+)>)/ig, '');
   }
 
+  const replaceNbsps = (str: any) => {
+    return str.replace(/&(nbsp|amp|quot|lt|gt);/g, " ");
+  }
+
   const createEventListeners = () => {
     const quill = quillRef.current.editingArea;
     quill.addEventListener('keydown', (e) => {
@@ -32,9 +36,10 @@ function App() {
           quillRef.current.editor.setSelection(editorText.current.length + autoCompleted.length)
         }
         else {
-          quillRef.current.editor.clipboard.dangerouslyPasteHTML(editorText.current)
+          const space = '&nbsp;'
+          quillRef.current.editor.clipboard.dangerouslyPasteHTML(editorText.current + space)
           autoComplete.current = '';
-          quillRef.current.editor.setSelection(editorText.current.length + 1);
+          quillRef.current.editor.setSelection(editorText.current.length);
         }
       }
       else {
@@ -47,12 +52,12 @@ function App() {
     createEventListeners()
   }, [])
 
- 
+
   const handleFetch = async (val: any) => {
     if(!keyStroke.current || !val) {
       return;
     }
-    const text = cleanText(val)
+    const text = replaceNbsps(cleanText(val))
     const payload = {
       text: text.trim()
     }

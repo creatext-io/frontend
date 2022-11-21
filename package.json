@@ -1,7 +1,7 @@
 {
   "name": "lexical-test",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@lexical/react": "^0.5.0",
-    "axios": "^1.1.3",
     "lexical": "^0.5.0",
     "lodash": "^4.17.21",
     "quill": "^1.3.7",
