@@ -7,7 +7,9 @@ import "quill/dist/quill.snow.css";
 
 const tools = [["bold", "italic", "underline"]];
 
-const API = "https://api.scrible.page/auto-complete";
+const apiKey = import.meta.env.VITE_APP_API;
+
+const API = apiKey;
 
 function App() {
   const editorText = useRef("");
