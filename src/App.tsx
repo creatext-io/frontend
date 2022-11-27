@@ -78,7 +78,7 @@ function App() {
     autoComplete.current = value.completion.trim();
     quillRef.current.editor.clipboard.dangerouslyPasteHTML(
       text +
-        `<b style="color: rgba(117, 117, 117, 0.3);">${value.completion.trim()}</b>`
+        `<span style="color: rgba(117, 117, 117, 0.3);">${value.completion.trim()}</span>`
     );
     quillRef.current.editor.setSelection(text.length);
     keyStroke.current = false;
