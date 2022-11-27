@@ -49,6 +49,16 @@ html, body {
   color: rgb(200, 194, 194);
 }
 
+.ql-editor {
+  padding: 16px !important;
+}
+
+
+.ql-editor p {
+  font-size: 16px !important;
+  line-height: 24px !important;
+}
+
 .ql-bold, .ql-italic, .ql-underline {
   padding: 12px;
   border-radius: 4px;
@@ -61,4 +71,10 @@ html, body {
 
 input:focus {
   outline: none;
+}
+
+.title-scrible {
+  background: -webkit-linear-gradient(rgb(129, 180, 213), rgb(131, 25, 217));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
