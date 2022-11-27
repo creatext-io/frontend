@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import.meta.env.VITE_APP_API
 import ReactQuill from 'react-quill';
 import _ from 'lodash'
 import './App.css'
@@ -8,7 +9,9 @@ const tools = [
   ['bold', 'italic', 'underline'],
 ];
 
-const API = 'https://api.scrible.page/auto-complete' // move to env
+let apiKey = import.meta.env.VITE_APP_API
+  
+const API = apiKey
 
 function App() {
   const editorText = useRef('')
