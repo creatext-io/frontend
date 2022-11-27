@@ -16,6 +16,7 @@ function App() {
   const autoComplete = useRef("");
   const keyStroke = useRef(true);
   const quillRef: any = useRef(null);
+  const signalRef: any = useRef(null);
   const [multiLine, setMultiLine] = useState(false);
 
   const cleanText = (str: any) => {
@@ -66,7 +67,10 @@ function App() {
       text: text.trim(),
       multi_line: multiLine,
     };
+
+    signalRef.current = new AbortController();
     const data = await fetch(API, {
+      signal: signalRef.current.signal,
       method: "POST",
       body: JSON.stringify(payload),
       headers: {
@@ -86,6 +90,13 @@ function App() {
 
   const debounceHandleFetch = _.debounce(handleFetch, 1000);
 
+  const handleChange = (val: string) => {
+    if (signalRef.current) {
+      signalRef.current.abort();
+    }
+    debounceHandleFetch(val);
+  };
+
   return (
     <>
       <section className="p-8">
@@ -97,14 +108,17 @@ function App() {
           <ReactQuill
             placeholder="start writing something..."
             className="w-full quill-container"
-            onChangeSelection={() => {
-              if (autoComplete.current) {
+            onChangeSelection={(e: any) => {
+              if (
+                autoComplete.current &&
+                e.index >= editorText.current.length
+              ) {
                 quillRef.current.editor.setSelection(editorText.current.length);
               }
             }}
             modules={{ toolbar: tools }}
             ref={quillRef}
-            onChange={debounceHandleFetch}
+            onChange={handleChange}
           />
         </div>
       </section>
