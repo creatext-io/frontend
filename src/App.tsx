@@ -5,8 +5,7 @@ import './App.css'
 import 'quill/dist/quill.snow.css';
 
 const tools = [
-  ['bold', 'italic', 'underline', 'strike'],
-  [{ 'color': ["#000000", "#e60000", "#ff9900", "#ffff00", "#008a00", "#0066cc", "#9933ff", "#ffffff", "#facccc", "#ffebcc", "#ffffcc", "#cce8cc", "#cce0f5", "#ebd6ff", "#bbbbbb", "#f06666", "#ffc266", "#ffff66", "#66b966", "#66a3e0", "#c285ff", "#888888", "#a10000", "#b26b00", "#b2b200", "#006100", "#0047b2", "#6b24b2", "#444444", "#5c0000", "#663d00", "#666600", "#003700", "#002966", "#3d1466", 'custom-color'] }]
+  ['bold', 'italic', 'underline'],
 ];
 
 const API = 'https://api.scrible.page/auto-complete' // move to env
@@ -27,7 +26,7 @@ function App() {
 
   const createEventListeners = () => {
     const quill = quillRef.current.editingArea;
-    quill.addEventListener('keydown', (e) => {
+    quill.addEventListener('keydown', (e: any) => {
       if (autoComplete.current) {
         if (e.keyCode == '9') {
           const autoCompleted = autoComplete.current
@@ -78,9 +77,25 @@ function App() {
 
 
   return (
-    <div className="App">
-      <ReactQuill onChangeSelection={(e) => { if (autoComplete.current) { quillRef.current.editor.setSelection(editorText.current.length) } }} modules={{ toolbar: tools }} ref={quillRef} onChange={debounceHandleFetch} />
-    </div>
+    <>
+    <section className='p-8'>
+      <div className="App max-w-3xl flex flex-col mx-auto my-0 rounded-lg bg-white">
+        <ReactQuill 
+          placeholder='start writing soomething...'
+          className='w-full quill-container' 
+          onChangeSelection={(e) => { 
+            if (autoComplete.current) { 
+              quillRef.current.editor.setSelection(editorText.current.length)
+            } 
+          }}
+          modules={{ toolbar: tools }} 
+          ref={quillRef} 
+          onChange={debounceHandleFetch} 
+        />
+      </div>
+    </section>
+    <footer className='flex justify-center sticky mt-4'>2022 @ scrible</footer>
+    </>
   )
 }
 
