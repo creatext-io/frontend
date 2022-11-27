@@ -57,3 +57,8 @@ html, body {
 .ql-formats .ql-bold, .ql-italic {
   margin-right: 8px !important;
 }
+
+
+input:focus {
+  outline: none;
+}
