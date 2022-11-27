@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "editor",
+    path: "/editor",
     element: (<App />)
   },
   {
