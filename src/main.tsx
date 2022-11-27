@@ -12,10 +12,10 @@ const router = createBrowserRouter([
       <LandingPage />
     ),
   },
-  {
-    path: "/mytexteditor",
-    element: (<App />)
-  },
+  // {
+  //   path: "/mytexteditor",
+  //   element: (<App />)
+  // },
   {
     path: "about",
     element: <div>About</div>,
