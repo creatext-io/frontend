@@ -4,9 +4,12 @@ module.exports = {
   theme: {
     extend: {
       height: {
-        '138': '42rem',
-      }
+        138: "42rem",
+      },
+      colors: {
+        "btn-blue": "#0167d6",
+      },
     },
   },
   plugins: [],
-}
+};

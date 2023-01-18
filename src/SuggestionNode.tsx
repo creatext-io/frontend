@@ -19,7 +19,7 @@ export class ColoredNode extends TextNode {
   createDOM(config: EditorConfig): HTMLElement {
     const element = super.createDOM(config);
     element.style.color = this.__color;
-    element.textContent = " " + element.textContent
+    element.textContent = " " + element.textContent;
     return element;
   }
 
