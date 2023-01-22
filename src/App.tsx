@@ -4,6 +4,8 @@ import Switch from "react-switch";
 import _ from "lodash";
 import "./App.css";
 import "quill/dist/quill.snow.css";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const tools = [["bold", "italic", "underline"]];
 
@@ -11,7 +13,15 @@ const apiKey = import.meta.env.VITE_APP_API;
 
 const API = apiKey;
 
+const getDocumentById = (docId: string) => {
+  return axios.get(`${import.meta.env.VITE_BASE_API}/document/${docId}`);
+};
+
 function App() {
+  const { docId } = useParams();
+
+  console.log(docId, "DOC ID");
+
   const editorText = useRef("");
   const autoComplete = useRef("");
   const keyStroke = useRef(true);
@@ -56,6 +66,16 @@ function App() {
 
   useEffect(() => {
     createEventListeners();
+
+    if (docId) {
+      getDocumentById(docId).then((res) => {
+        console.log(res, "GET DOC BY ID");
+        editorText.current = res.data.data[0].body;
+        quillRef.current.editor.clipboard.dangerouslyPasteHTML(
+          res.data.data[0].body
+        );
+      });
+    }
   }, []);
 
   const handleFetch = async (val: any) => {
@@ -96,11 +116,10 @@ function App() {
     }
     debounceHandleFetch(val);
   };
-
+  console.log(editorText, quillRef);
   return (
     <>
       <section className="p-8">
-        <h2 className="text-4xl title-scrible text-center mb-6 italic font-bold">scrible</h2>
         <div className="App max-w-3xl flex flex-col mx-auto my-0 rounded-lg bg-white">
           <label className="multi-suggestion flex items-center mt-1">
             <span className="mr-3 text-sm">multi line suggestions</span>
@@ -135,6 +154,7 @@ function App() {
             modules={{ toolbar: tools }}
             ref={quillRef}
             onChange={handleChange}
+            defaultValue={editorText.current}
           />
         </div>
       </section>
