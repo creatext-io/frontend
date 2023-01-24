@@ -43,9 +43,22 @@ function App() {
       if (autoComplete.current) {
         if (e.keyCode == "9") {
           const autoCompleted = autoComplete.current;
-          quillRef.current.editor.clipboard.dangerouslyPasteHTML(
-            editorText.current + autoCompleted
-          );
+
+          const autoCompleteElement =
+            document.querySelectorAll(".ql-editor p span");
+          (autoCompleteElement as NodeListOf<HTMLElement>).forEach((el) => {
+            if (el.style.color === "rgba(117, 117, 117, 0.3)") {
+              el.style.color = "black";
+            }
+          });
+          console.log(autoCompleteElement, "AUTO COMPLETE ELEMENT");
+          // if (autoCompleteElement) {
+          //   autoCompleteElement.style.color = "black";
+          //   autoCompleteElement.id = "sdasdasda";
+          // }
+          // quillRef.current.editor.clipboard.dangerouslyPasteHTML(
+          //   document.querySelector(".ql-editor")?.innerHTML + autoCompleted
+          // );
           autoComplete.current = "";
           quillRef.current.editor.setSelection(
             editorText.current.length + autoCompleted.length
@@ -82,6 +95,7 @@ function App() {
     if (!keyStroke.current || !val) {
       return;
     }
+    console.log(val, "VALUE");
     const text = replaceNbsps(cleanText(val));
     const payload = {
       text: text.trim(),
@@ -100,10 +114,15 @@ function App() {
     const value = await data.json();
     editorText.current = text;
     autoComplete.current = value.completion.trim();
-    quillRef.current.editor.clipboard.dangerouslyPasteHTML(
-      text +
-        `<span style="color: rgba(117, 117, 117, 0.3);">${value.completion.trim()}</span>`
-    );
+    // innerHTML is <p>  content here   </p>
+    var n = val.lastIndexOf("</p>");
+    var str2 =
+      val.substring(0, n) +
+      `<span style="color: rgba(117, 117, 117, 0.3);" data-attr="sdsd">${value.completion.trim()}</span>` +
+      val.substring(n);
+
+    console.log(document.querySelector(".ql-editor")?.innerHTML, "innerhtml");
+    quillRef.current.editor.clipboard.dangerouslyPasteHTML(str2, "api");
     quillRef.current.editor.setSelection(text.length);
     keyStroke.current = false;
   };
@@ -116,7 +135,12 @@ function App() {
     }
     debounceHandleFetch(val);
   };
-  console.log(editorText, quillRef);
+  console.log(
+    editorText,
+    // quillRef.current.unprivilegedEditor.getContents(),
+    quillRef.current,
+    document.querySelector(".ql-editor")?.innerHTML
+  );
   return (
     <>
       <section className="p-8">
