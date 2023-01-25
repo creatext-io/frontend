@@ -42,23 +42,34 @@ function App() {
     quill.addEventListener("keydown", (e: any) => {
       if (autoComplete.current) {
         if (e.keyCode == "9") {
+          e.preventDefault();
+
           const autoCompleted = autoComplete.current;
 
           const autoCompleteElement =
             document.querySelectorAll(".ql-editor p span");
           (autoCompleteElement as NodeListOf<HTMLElement>).forEach((el) => {
             if (el.style.color === "rgba(117, 117, 117, 0.3)") {
-              el.style.color = "black";
+              el.remove();
             }
           });
-          console.log(autoCompleteElement, "AUTO COMPLETE ELEMENT");
+          // console.log(autoCompleteElement, "AUTO COMPLETE ELEMENT");
+
+          //-------
           // if (autoCompleteElement) {
           //   autoCompleteElement.style.color = "black";
           //   autoCompleteElement.id = "sdasdasda";
           // }
-          // quillRef.current.editor.clipboard.dangerouslyPasteHTML(
-          //   document.querySelector(".ql-editor")?.innerHTML + autoCompleted
-          // );
+
+          var n = document
+            .querySelector(".ql-editor")
+            ?.innerHTML.lastIndexOf("</p>");
+          var str2 =
+            document.querySelector(".ql-editor")?.innerHTML.substring(0, n) +
+            autoCompleted.trim() +
+            document.querySelector(".ql-editor")?.innerHTML.substring(n);
+
+          quillRef.current.editor.clipboard.dangerouslyPasteHTML(str2, "api");
           autoComplete.current = "";
           quillRef.current.editor.setSelection(
             editorText.current.length + autoCompleted.length
@@ -73,6 +84,16 @@ function App() {
         }
       } else {
         keyStroke.current = true;
+      }
+    });
+
+    window.addEventListener("click", (e: any) => {
+      if (autoComplete.current) {
+        quillRef.current.editor.clipboard.dangerouslyPasteHTML(
+          editorText.current
+        );
+        autoComplete.current = "";
+        quillRef.current.editor.setSelection(editorText.current.length);
       }
     });
   };
@@ -175,7 +196,12 @@ function App() {
                 quillRef.current.editor.setSelection(editorText.current.length);
               }
             }}
-            modules={{ toolbar: tools }}
+            modules={{
+              toolbar: tools,
+              history: {
+                userOnly: true,
+              },
+            }}
             ref={quillRef}
             onChange={handleChange}
             defaultValue={editorText.current}
