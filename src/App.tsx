@@ -70,11 +70,19 @@ function App() {
           console.log("NOT TAB KEYYYY");
           removeAutoCompleteElement();
           const space = "&nbsp;";
-          quillRef.current.editor.clipboard.dangerouslyPasteHTML(
-            document.querySelector(".ql-editor")?.innerHTML + space
-          );
+
+          var n = document
+            .querySelector(".ql-editor")
+            ?.innerHTML.lastIndexOf("</p>");
+          var str2 =
+            document.querySelector(".ql-editor")?.innerHTML.substring(0, n) +
+            space +
+            document.querySelector(".ql-editor")?.innerHTML.substring(n || 0);
+
+          quillRef.current.editor.clipboard.dangerouslyPasteHTML(str2, "api");
+
           autoComplete.current = "";
-          quillRef.current.editor.setSelection(editorText.current.length);
+          quillRef.current.editor.setSelection(editorText.current.length + 1);
         }
       } else {
         keyStroke.current = true;
@@ -83,8 +91,9 @@ function App() {
 
     window.addEventListener("click", (e: any) => {
       if (autoComplete.current) {
+        removeAutoCompleteElement();
         quillRef.current.editor.clipboard.dangerouslyPasteHTML(
-          editorText.current
+          document.querySelector(".ql-editor")?.innerHTML
         );
         autoComplete.current = "";
         quillRef.current.editor.setSelection(editorText.current.length);
@@ -108,6 +117,7 @@ function App() {
 
   const handleFetch = async (val: any) => {
     const selection = quillRef.current.unprivilegedEditor.getSelection();
+    console.log(val, "VALUUEUEUE");
     if (!keyStroke.current || !val) {
       return;
     }
