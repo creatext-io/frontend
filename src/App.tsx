@@ -91,12 +91,14 @@ function App() {
 
     window.addEventListener("click", (e: any) => {
       if (autoComplete.current) {
+        const selection = quillRef.current.unprivilegedEditor.getSelection();
+        console.log(selection, "SELELTION FROM CLICK");
         removeAutoCompleteElement();
-        quillRef.current.editor.clipboard.dangerouslyPasteHTML(
-          document.querySelector(".ql-editor")?.innerHTML
-        );
+        // quillRef.current.editor.clipboard.dangerouslyPasteHTML(
+        //   document.querySelector(".ql-editor")?.innerHTML
+        // );
         autoComplete.current = "";
-        quillRef.current.editor.setSelection(editorText.current.length);
+        // quillRef.current.editor.setSelection(selection.index);
       }
     });
   };
@@ -109,6 +111,7 @@ function App() {
         console.log(res, "GET DOC BY ID");
         editorText.current = res.data.data[0].body;
         quillRef.current.editor.clipboard.dangerouslyPasteHTML(
+          0,
           res.data.data[0].body
         );
       });
