@@ -98,9 +98,9 @@ const Dashboard = () => {
         {data?.map((docsData) => {
           return (
             <ContextMenuContainer
-              onEdit={() => editDocumentById(docsData.uuid)}
+              onEdit={() => editDocumentById(docsData.doc_id)}
             >
-              <ListItem onClick={() => editDocumentById(docsData.uuid)}>
+              <ListItem onClick={() => editDocumentById(docsData.doc_id)}>
                 <div className="flex justify-between w-full items-baseline">
                   <div className="flex items-baseline">
                     <FileTextIcon className="mr-2" /> {docsData.title}

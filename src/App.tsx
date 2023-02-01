@@ -4,8 +4,11 @@ import Switch from "react-switch";
 import _ from "lodash";
 import "./App.css";
 import "quill/dist/quill.snow.css";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { styled } from "@stitches/react";
+import * as Label from "@radix-ui/react-label";
+import { v4 as uuidv4 } from "uuid";
 
 const tools = [["bold", "italic", "underline"]];
 
@@ -26,6 +29,34 @@ const removeAutoCompleteElement = () => {
   });
 };
 
+const TitleInput = styled("input", {
+  display: "block",
+  width: "100%",
+  alignItems: "center",
+  justifyContent: "center",
+  borderRadius: 6,
+  padding: "3px 10px",
+  height: 45,
+  fontSize: 18,
+  lineHeight: 1,
+  // backgroundColor: "rgba(242, 241, 238, 0.6)",
+  backgroundColor: "white",
+  boxShadow: `rgb(15 15 15 / 10%) 0px 0px 0px 1px inset`,
+  "&:focus": {
+    boxShadow: `rgb(35 131 226 / 57%) 0px 0px 0px 1px inset, rgb(35 131 226 / 35%) 0px 0px 0px 2px !important`,
+  },
+  "&::placeholder": {
+    color: "#ababa8",
+  },
+});
+
+const LabelRoot = styled(Label.Root, {
+  fontSize: 12,
+  fontWeight: 500,
+  marginBottom: 4,
+  color: "rgba(55, 53, 47, 0.65)",
+});
+
 function App() {
   const { docId } = useParams();
   const editorText = useRef("");
@@ -33,7 +64,13 @@ function App() {
   const keyStroke = useRef(true);
   const quillRef: any = useRef(null);
   const signalRef: any = useRef(null);
+  const prevValues = useRef({
+    title: "",
+    content: "",
+  });
+  const navigate = useNavigate();
   const [multiLine, setMultiLine] = useState(false);
+  const [title, setTitle] = useState<string>("");
 
   const cleanText = (str: any) => {
     return str.replace(/(<([^>]+)>)/gi, "");
@@ -110,11 +147,18 @@ function App() {
       getDocumentById(docId).then((res) => {
         console.log(res, "GET DOC BY ID");
         editorText.current = res.data.data[0].body;
+        setTitle(res.data.data[0].title);
+        prevValues.current.content = res.data.data[0].body;
+        prevValues.current.title = res.data.data[0].title;
+
         quillRef.current.editor.clipboard.dangerouslyPasteHTML(
           0,
           res.data.data[0].body
         );
       });
+    } else {
+      const newUUID = uuidv4();
+      navigate(`/editor/${newUUID}`);
     }
   }, []);
 
@@ -127,7 +171,8 @@ function App() {
     const text = replaceNbsps(cleanText(val));
     const payload = {
       text: text.trim(),
-      multi_line: multiLine,
+      doc_id: docId,
+      cursor_position: selection.index,
     };
 
     /*
@@ -153,7 +198,7 @@ function App() {
     if (value.completion) {
       editorText.current = text;
       autoComplete.current = value.completion.trim();
-      // innerHTML is <p>  content here   </p>
+      // innerHTML is <p> content here </p>
       var n = val.lastIndexOf("</p>");
       var str2 =
         val.substring(0, n) +
@@ -167,14 +212,44 @@ function App() {
     }
   };
 
-  const debounceHandleFetch = _.debounce(handleFetch, 1000);
+  const handleSave = () => {
+    if (
+      prevValues.current.title !== title ||
+      prevValues.current.content !==
+        document.querySelector(".ql-editor")?.innerHTML
+    ) {
+    }
+    axios
+      .put(`${import.meta.env.VITE_BASE_API}/save`, {
+        title,
+        body: document.querySelector(".ql-editor")?.innerHTML,
+        date: 0,
+        user_id: window.localStorage.getItem("userId"),
+        doc_id: docId,
+      })
+      .then((res) => {
+        console.log(res, "RESSSS");
+        prevValues.current.title = title;
+        // @ts-ignore
+        prevValues.current.content =
+          document.querySelector(".ql-editor")?.innerHTML;
+      });
+  };
 
+  const debounceHandleFetch = _.debounce(handleFetch, 1000);
+  const debounceSave = _.debounce(handleSave, 4000);
   const handleChange = (val: string) => {
     if (signalRef.current) {
       signalRef.current.abort();
     }
     debounceHandleFetch(val);
+    debounceSave();
   };
+
+  useEffect(() => {
+    debounceSave();
+  }, [title]);
+
   console.log(
     editorText,
     quillRef.current,
@@ -183,26 +258,18 @@ function App() {
   return (
     <>
       <section className="p-8">
+        <div className="max-w-3xl mx-auto mb-4">
+          <LabelRoot htmlFor="email">Title</LabelRoot>
+          <TitleInput
+            placeholder="New Title here...."
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+          />
+        </div>
         <div className="App max-w-3xl flex flex-col mx-auto my-0 rounded-lg bg-white">
-          <label className="multi-suggestion flex items-center mt-1">
-            <span className="mr-3 text-sm">multi line suggestions</span>
-            {/* <Switch onChange={(val) => setMultiLine(val)} checked={multiLine} /> */}
-            <Switch
-              checked={multiLine}
-              onChange={(val) => setMultiLine(val)}
-              onColor="#86d3ff"
-              onHandleColor="#2693e6"
-              handleDiameter={20}
-              uncheckedIcon={false}
-              checkedIcon={false}
-              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-              height={14}
-              width={40}
-              className="react-switch"
-              id="material-switch"
-            />
-          </label>
+          <label className="multi-suggestion flex items-center mt-1"></label>
           <ReactQuill
             placeholder="start writing something..."
             className="w-full quill-container"
