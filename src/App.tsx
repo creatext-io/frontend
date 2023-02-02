@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import ReactQuill from "react-quill";
-import Switch from "react-switch";
 import _ from "lodash";
 import "./App.css";
 import "quill/dist/quill.snow.css";

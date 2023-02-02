@@ -103,10 +103,16 @@ const Dashboard = () => {
               <ListItem onClick={() => editDocumentById(docsData.doc_id)}>
                 <div className="flex justify-between w-full items-baseline">
                   <div className="flex items-baseline">
-                    <FileTextIcon className="mr-2" /> {docsData.title}
-                    <span className="text-xs ml-2 text-gray-600">
-                      {docsData.body}
+                    <FileTextIcon className="mr-2" />{" "}
+                    <span className="m-w-36 whitespace-nowrap text-ellipsis overflow-hidden">
+                      {docsData.title}
                     </span>
+                    <span className="text-xs ml-2 text-gray-600 w-80 whitespace-nowrap text-ellipsis overflow-hidden">
+                      <span
+                        dangerouslySetInnerHTML={{ __html: docsData.body }}
+                      ></span>
+                    </span>
+                    <span className="ml-1">...</span>
                   </div>
                   <p className="text-xs text-gray-500">
                     {new Date(docsData.date).toDateString()}{" "}
@@ -116,7 +122,6 @@ const Dashboard = () => {
             </ContextMenuContainer>
           );
         })}
-
         <ListSeprator />
       </div>
     </DashboardContainer>
