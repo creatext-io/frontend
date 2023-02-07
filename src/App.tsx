@@ -218,21 +218,24 @@ function App() {
         document.querySelector(".ql-editor")?.innerHTML
     ) {
     }
-    axios
-      .put(`${import.meta.env.VITE_BASE_API}/save`, {
-        title,
-        body: document.querySelector(".ql-editor")?.innerHTML,
-        date: 0,
-        user_id: window.localStorage.getItem("userId"),
-        doc_id: docId,
-      })
-      .then((res) => {
-        console.log(res, "RESSSS");
-        prevValues.current.title = title;
-        // @ts-ignore
-        prevValues.current.content =
-          document.querySelector(".ql-editor")?.innerHTML;
-      });
+
+    if (autoComplete.current === "" && title) {
+      axios
+        .put(`${import.meta.env.VITE_BASE_API}/save`, {
+          title,
+          body: document.querySelector(".ql-editor")?.innerHTML,
+          date: 0,
+          user_id: window.localStorage.getItem("userId"),
+          doc_id: docId,
+        })
+        .then((res) => {
+          console.log(res, "RESSSS");
+          prevValues.current.title = title;
+          // @ts-ignore
+          prevValues.current.content =
+            document.querySelector(".ql-editor")?.innerHTML;
+        });
+    }
   };
 
   const debounceHandleFetch = _.debounce(handleFetch, 1000);
