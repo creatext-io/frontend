@@ -224,7 +224,7 @@ function App() {
         .put(`${import.meta.env.VITE_BASE_API}/save`, {
           title,
           body: document.querySelector(".ql-editor")?.innerHTML,
-          date: 0,
+          date: new Date().getTime(),
           user_id: window.localStorage.getItem("userId"),
           doc_id: docId,
         })
