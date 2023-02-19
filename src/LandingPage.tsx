@@ -1,6 +1,6 @@
 import { PopupButton } from "@typeform/embed-react";
 import React from "react";
-import video from '../public/scrible.mp4'
+import video from '../public/scrible-landing-page.mp4'
 
 const LandingPage = () => { 
   return(
