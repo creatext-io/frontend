@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Field } from "formik";
 import axios from "axios";
 import { blackA, whiteA } from "@radix-ui/colors";
@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import SvgIcon from "./assets/scrible-logo.svg";
 function Login() {
   const navigate = useNavigate();
+
+  const [errorMsg, setErrorMsg] = useState("");
 
   const onSubmit = (data) => {
     const fd = new FormData();
@@ -19,7 +21,12 @@ function Login() {
         window.localStorage.setItem("userId", res.data.data);
         navigate("/dashboard");
       })
-      .catch(console.log);
+      .catch((err) => {
+        setErrorMsg(err?.response?.data?.detail);
+        setTimeout(() => {
+          setErrorMsg("");
+        }, 5000);
+      });
   };
   return (
     <div className="login-container relative bg-gray-100 ">
@@ -78,11 +85,14 @@ function Login() {
                     value={values.accessKey}
                   />
                 </div>
+
                 <button
                   type="submit"
-                  className="mt-8  text-sm border-solid border bg-[#12c55f] text-sm font-light p-2 text-slate-100 rounded w-full"
+                  className={`mt-8  text-sm border-solid border ${
+                    errorMsg ? "bg-red-400" : "bg-[#12c55f]"
+                  }  text-sm font-light p-2 text-slate-100 rounded w-full`}
                 >
-                  <span className="font-bold">Login</span>
+                  <span className="font-bold">{errorMsg || "Login"}</span>
                 </button>
               </form>
             )}
