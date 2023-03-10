@@ -12,6 +12,7 @@ import "./index.css";
 import LandingPage from "./LandingPage";
 import { ProtectedLayout } from "./layouts/ProtectedLayout";
 import Login from "./Login";
+import Signup from "./Signup";
 import Dashboard from "./pages/Dashboard/Dashboard";
 
 const queryClient = new QueryClient();
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
     <>
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
 
       <Route element={<ProtectedLayout />}>
         <Route path="dashboard" element={<Dashboard />} />

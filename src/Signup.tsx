@@ -6,18 +6,18 @@ import { styled } from "@stitches/react";
 import * as Label from "@radix-ui/react-label";
 import { useNavigate } from "react-router-dom";
 import SvgIcon from "./assets/scrible-logo.svg";
-function Login() {
+function Signup() {
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
     const fd = new FormData();
     fd.append("username", data.email);
-    fd.append("password", data.accessKey);
+    fd.append("password", data.password);
     axios
-      .post(`${import.meta.env.VITE_BASE_API}/login`, fd)
+      .post(`${import.meta.env.VITE_BASE_API}/signup`, fd)
       .then((res) => {
         window.localStorage.setItem("userId", res.data.data);
-        navigate("/dashboard");
+        navigate("/login");
       })
       .catch(console.log);
   };
@@ -27,13 +27,13 @@ function Login() {
         <div className="flex items-center"></div>
         <div className="flex items-center">
           <p className="text-sm text-slate-500 cursor-pointer">
-            New to Scrible?
+            Already have an account?
           </p>
           <button
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/login")}
             className="text-sm border-solid border text-sm border-slate-300 ml-4 py-1.5 px-2 text-slate-600 shadow-sm rounded"
           >
-            Create an account
+            Login
           </button>
         </div>
       </header>
@@ -44,7 +44,7 @@ function Login() {
             onSubmit={onSubmit}
             initialValues={{
               email: "",
-              accessKey: "",
+              password: "",
             }}
           >
             {({
@@ -68,21 +68,22 @@ function Login() {
                   />
                 </div>
                 <div className="flex flex-col mt-5">
-                  <LabelRoot htmlFor="accessKey">Password</LabelRoot>
+                  <LabelRoot htmlFor="password">Password</LabelRoot>
                   <Input
                     type="password"
-                    id="accessKey"
-                    name="accessKey"
-                    placeholder="Enter your password"
+                    id="password"
+                    name="password"
+                    placeholder="password"
                     onChange={handleChange}
-                    value={values.accessKey}
+                    value={values.password}
                   />
                 </div>
+
                 <button
                   type="submit"
                   className="mt-8  text-sm border-solid border bg-[#12c55f] text-sm font-light p-2 text-slate-100 rounded w-full"
                 >
-                  <span className="font-bold">Login</span>
+                  <span className="font-bold">Create Account</span>
                 </button>
               </form>
             )}
@@ -129,4 +130,4 @@ const Input = styled("input", {
   },
 });
 
-export default Login;
+export default Signup;

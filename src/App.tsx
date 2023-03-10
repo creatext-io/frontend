@@ -8,6 +8,7 @@ import axios from "axios";
 import { styled } from "@stitches/react";
 import * as Label from "@radix-ui/react-label";
 import { v4 as uuidv4 } from "uuid";
+import { SymbolIcon } from "@radix-ui/react-icons";
 
 const tools = [["bold", "italic", "underline"]];
 
@@ -16,7 +17,11 @@ const apiKey = import.meta.env.VITE_APP_API;
 const API = apiKey;
 
 const getDocumentById = (docId: string) => {
-  return axios.get(`${import.meta.env.VITE_BASE_API}/document/${docId}`);
+  return axios.get(`${import.meta.env.VITE_BASE_API}/document/${docId}`, {
+    headers: {
+      Authorization: `Bearer ${window.localStorage.getItem("userId")}`,
+    },
+  });
 };
 
 const removeAutoCompleteElement = () => {
@@ -56,6 +61,14 @@ const LabelRoot = styled(Label.Root, {
   color: "rgba(55, 53, 47, 0.65)",
 });
 
+const SavingLoader = styled("div", {
+  width: "15px",
+  height: "15px",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+});
+
 function App() {
   const { docId } = useParams();
   const editorText = useRef("");
@@ -70,6 +83,7 @@ function App() {
   const navigate = useNavigate();
   const [multiLine, setMultiLine] = useState(false);
   const [title, setTitle] = useState<string>("");
+  const [isSaving, setIsSaving] = useState(false);
 
   const cleanText = (str: any) => {
     return str.replace(/(<([^>]+)>)/gi, "");
@@ -188,6 +202,7 @@ function App() {
       body: JSON.stringify(payload),
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${window.localStorage.getItem("userId")}`,
       },
     });
     const value = await data.json();
@@ -220,15 +235,24 @@ function App() {
     }
 
     if (autoComplete.current === "" && title) {
+      setIsSaving(true);
       axios
-        .put(`${import.meta.env.VITE_BASE_API}/save`, {
-          title,
-          body: document.querySelector(".ql-editor")?.innerHTML,
-          date: new Date().getTime(),
-          user_id: window.localStorage.getItem("userId"),
-          doc_id: docId,
-        })
+        .put(
+          `${import.meta.env.VITE_BASE_API}/save`,
+          {
+            title,
+            body: document.querySelector(".ql-editor")?.innerHTML,
+            date: new Date().getTime(),
+            doc_id: docId,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${window.localStorage.getItem("userId")}`,
+            },
+          }
+        )
         .then((res) => {
+          setIsSaving(false);
           console.log(res, "RESSSS");
           prevValues.current.title = title;
           // @ts-ignore
@@ -261,6 +285,13 @@ function App() {
     <>
       <section className="p-8">
         <div className="max-w-3xl mx-auto mb-4">
+          <div className={`flex items-center ${isSaving ? "" : "opacity-0"}`}>
+            <SavingLoader className="animate-spin origin-center text-gray-400">
+              <SymbolIcon />
+            </SavingLoader>
+            <p className="ml-2 text-xs text-gray-400">Saving...</p>
+          </div>
+
           <LabelRoot htmlFor="email">Title</LabelRoot>
           <TitleInput
             placeholder="New Title here...."
