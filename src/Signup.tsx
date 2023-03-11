@@ -62,7 +62,7 @@ function Signup() {
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="Enter your email address..."
+                    placeholder="enter email"
                     onChange={handleChange}
                     value={values.email}
                   />
@@ -73,7 +73,7 @@ function Signup() {
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="password"
+                    placeholder="create password"
                     onChange={handleChange}
                     value={values.password}
                   />
@@ -83,7 +83,7 @@ function Signup() {
                   type="submit"
                   className="mt-8  text-sm border-solid border bg-[#12c55f] text-sm font-light p-2 text-slate-100 rounded w-full"
                 >
-                  <span className="font-bold">Create Account</span>
+                  <span className="font-bold">Signup</span>
                 </button>
               </form>
             )}

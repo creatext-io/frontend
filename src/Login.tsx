@@ -69,7 +69,7 @@ function Login() {
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="Enter your email address..."
+                    placeholder="enter email"
                     onChange={handleChange}
                     value={values.email}
                   />
@@ -80,7 +80,7 @@ function Login() {
                     type="password"
                     id="accessKey"
                     name="accessKey"
-                    placeholder="Enter your password"
+                    placeholder="enter password"
                     onChange={handleChange}
                     value={values.accessKey}
                   />
