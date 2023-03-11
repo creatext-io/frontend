@@ -328,7 +328,7 @@ function App() {
       </section>
 
       <footer className="flex justify-center sticky mt-4">
-        2022 @ scrible
+        2023 @ scrible
       </footer>
     </>
   );
