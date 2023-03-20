@@ -1,0 +1,444 @@
+.scriblelandingpage-navbar-logo-left {
+    width: 100%;
+    height: auto;
+    display: flex;
+    padding: 0 24px;
+    z-index: 0;
+    overflow: hidden;
+    position: relative;
+    align-self: stretch;
+    align-items: center;
+    flex-shrink: 0;
+    background-image: radial-gradient(circle at left, rgb(255, 255, 255) 0.00%,rgb(117, 112, 244) 100.00%);
+  }
+  .scriblelandingpage-scriblelogo {
+    display: flex;
+    padding: 10px;
+    position: relative;
+    align-items: center;
+    border-color: transparent;
+    margin-right: 0px;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .scriblelandingpage-text {
+    color: rgba(0, 0, 0, 1);
+    width: 119px;
+    height: auto;
+    font-size: 40px;
+    align-self: auto;
+    font-style: SemiBold;
+    text-align: left;
+    font-family: Intro Script-Trial;
+    font-weight: 600;
+    line-height: 150%;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .scriblelandingpage-navbar-container {
+    width: 1068px;
+    height: 34px;
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-color: transparent;
+  }
+  .scriblelandingpage-navbar-content {
+    width: 1018px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    flex-shrink: 0;
+    border-color: transparent;
+    margin-right: var(--dl-space-space-oneandhalfunits);
+    justify-content: space-between;
+  }
+  .scriblelandingpage-navbar-brand {
+    display: flex;
+    position: relative;
+    align-items: flex-start;
+    border-color: transparent;
+  }
+  .scriblelandingpage-navbar-menu {
+    top: 0px;
+    right: 0px;
+    margin: auto;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-self: flex-start;
+    align-items: center;
+    border-color: transparent;
+  }
+  .scriblelandingpage-button {
+    color: #000000;
+    display: flex;
+    padding: 8px 20px;
+    position: relative;
+    transition: 0.3s;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0);
+  }
+  .scriblelandingpage-button:hover {
+    background-color: transparent;
+  }
+  .scriblelandingpage-text01 {
+    color: rgb(0, 0, 0);
+    height: auto;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    transition: 0.3s;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 140%;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .scriblelandingpage-text01:hover {
+    color: #4e4e4e;
+  }
+  .scriblelandingpage-button1 {
+    color: #000000;
+    display: flex;
+    padding: 8px 20px;
+    position: relative;
+    transition: 0.3s;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+  }
+  .scriblelandingpage-button1:hover {
+    color: #000000;
+  }
+  .scriblelandingpage-text02 {
+    color: rgb(0, 0, 0);
+    height: auto;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 140%;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .scriblelandingpage-button2 {
+    display: flex;
+    padding: 8px 20px;
+    position: relative;
+    transition: 0.3s;
+    align-items: center;
+    border-color: transparent;
+    justify-content: center;
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 1);
+  }
+  .scriblelandingpage-button2:hover {
+    background-color: #5a5a5a;
+  }
+  .scriblelandingpage-text03 {
+    color: rgba(255, 255, 255, 1);
+    height: auto;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 139.9999976158142%;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .scriblelandingpage-hero-heading-left {
+    width: 100%;
+    height: auto;
+    display: flex;
+    padding: 64px 24px;
+    overflow: hidden;
+    position: relative;
+    align-self: stretch;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background-image: radial-gradient(circle at left bottom, rgb(255, 255, 255) 0.00%,rgb(125, 120, 255) 100.00%);
+  }
+  .scriblelandingpage-container1 {
+    flex: 0 0 auto;
+    width: 485px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .scriblelandingpage-container2 {
+    flex: 0 0 auto;
+    width: 485px;
+    height: 445px;
+    display: flex;
+    flex-direction: column;
+  }
+  .scriblelandingpage-container3 {
+    flex: 0 0 auto;
+    width: 488px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .scriblelandingpage-container4 {
+    width: 100%;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 113px;
+  }
+  .scriblelandingpage-text05 {
+    color: rgb(0, 0, 0);
+    height: auto;
+    font-size: 56px;
+    align-self: stretch;
+    font-style: Bold;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 130%;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 24px;
+    text-decoration: none;
+  }
+  .scriblelandingpage-text12 {
+    color: rgb(33, 33, 33);
+    height: auto;
+    font-size: 16px;
+    align-self: stretch;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 140%;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .scriblelandingpage-button3 {
+    width: 127px;
+    height: 39px;
+    display: flex;
+    padding: 12px 24px;
+    position: relative;
+    transition: 0.3s;
+    align-items: center;
+    border-color: transparent;
+    justify-content: center;
+    text-decoration: none;
+    background-color: var(--dl-color-gray-black);
+  }
+  .scriblelandingpage-button3:hover {
+    background-color: #5A5A5A;
+  }
+  .scriblelandingpage-text28 {
+    color: rgba(255, 255, 255, 1);
+    height: auto;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 139.9999976158142%;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .scriblelandingpage-video {
+    width: 668px;
+    height: 442px;
+  }
+  .scriblelandingpage-footer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    padding: 64px 24px 0 24px;
+    overflow: hidden;
+    position: relative;
+    align-items: center;
+    flex-shrink: 0;
+    border-color: transparent;
+    flex-direction: column;
+    background-color: #f1f1f1;
+  }
+  .scriblelandingpage-footerslogan {
+    display: flex;
+    padding: 10px;
+    position: relative;
+    align-items: flex-end;
+    border-color: transparent;
+    margin-bottom: 21px;
+    flex-direction: column;
+  }
+  .scriblelandingpage-text30 {
+    color: rgb(0, 0, 0);
+    height: auto;
+    font-size: 40px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 100%;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .scriblelandingpage-actions {
+    display: flex;
+    padding: 16px 0 0 0;
+    position: relative;
+    align-items: center;
+    border-color: transparent;
+    margin-bottom: 21px;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+  .scriblelandingpage-button4 {
+    display: flex;
+    padding: 12px 24px;
+    position: relative;
+    transition: 0.3s;
+    align-items: center;
+    border-color: transparent;
+    justify-content: center;
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 1);
+  }
+  .scriblelandingpage-button4:hover {
+    background-color: #5a5a5a;
+  }
+  .scriblelandingpage-text31 {
+    color: rgba(255, 255, 255, 1);
+    height: auto;
+    font-size: 12px;
+    align-self: auto;
+    font-style: Medium;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 139.9999976158142%;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  .scriblelandingpage-copyright {
+    width: 940px;
+    display: flex;
+    padding: 16px 0;
+    position: relative;
+    align-items: center;
+    flex-shrink: 0;
+    border-color: transparent;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .scriblelandingpage-text33 {
+    color: rgba(51, 51, 51, 1);
+    height: auto;
+    font-size: 14px;
+    align-self: stretch;
+    font-style: Medium;
+    text-align: center;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 150%;
+    font-stretch: normal;
+    margin-right: 0;
+    margin-bottom: 0;
+    text-decoration: none;
+  }
+  @media(max-width: 479px) {
+    .scriblelandingpage-scriblelogo {
+      width: 129px;
+    }
+    .scriblelandingpage-text {
+      color: rgb(0, 0, 0);
+      font-size: 30px;
+      font-weight: 600;
+      line-height: 150%;
+      text-decoration: none;
+    }
+    .scriblelandingpage-navbar-content {
+      width: 407px;
+      height: 54px;
+      border-color: rgba(0, 0, 0, 0);
+      border-width: 1px;
+    }
+    .scriblelandingpage-navbar-menu {
+      top: 2px;
+      left: 11px;
+      width: 236px;
+      height: 71px;
+    }
+    .scriblelandingpage-hero-heading-left {
+      height: 634px;
+    }
+    .scriblelandingpage-text05 {
+      color: rgb(0, 0, 0);
+      font-size: 56px;
+      font-family: Inter;
+      font-weight: 700;
+      line-height: 130%;
+      text-decoration: none;
+    }
+    .scriblelandingpage-text06 {
+      font-size: 40px;
+      line-height: 120%;
+    }
+    .scriblelandingpage-text07 {
+      font-size: 40px;
+      line-height: 120%;
+    }
+    .scriblelandingpage-text08 {
+      font-size: 40px;
+      line-height: 120%;
+    }
+    .scriblelandingpage-text09 {
+      font-size: 40px;
+      line-height: 120%;
+    }
+    .scriblelandingpage-text12 {
+      color: rgb(33, 33, 33);
+      font-size: 15px;
+      font-family: Inter;
+      font-weight: 500;
+      line-height: 120%;
+      text-transform: lowercase;
+      text-decoration: none;
+    }
+    .scriblelandingpage-video {
+      width: 433px;
+      height: 397px;
+    }
+    .scriblelandingpage-text30 {
+      color: rgb(0, 0, 0);
+      font-size: 30px;
+      font-family: Inter;
+      font-weight: 500;
+      line-height: 100%;
+      text-decoration: none;
+    }
+  }
+  
