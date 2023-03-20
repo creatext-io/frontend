@@ -3,20 +3,20 @@ import axios from "axios";
 
 const getDocuments = () =>
   axios
-    .get(
-      `${import.meta.env.VITE_BASE_API}/documents/${window.localStorage.getItem(
-        "userId"
-      )}`
-    )
+    .get(`${import.meta.env.VITE_BASE_API}/documents`, {
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem("userId")}`,
+      },
+    })
     .then((res) => {
       return res.data.data;
     });
 
 export const useDocuments = () => {
-  const { data } = useQuery({
+  const { data, refetch } = useQuery({
     queryKey: ["documents"],
     queryFn: getDocuments,
     refetchOnMount: false,
   });
-  return { data };
+  return { data, refetch };
 };

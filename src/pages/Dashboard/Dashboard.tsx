@@ -1,11 +1,12 @@
 import React from "react";
-import { FilePlusIcon, FileTextIcon } from "@radix-ui/react-icons";
+import { FilePlusIcon, FileTextIcon, TrashIcon } from "@radix-ui/react-icons";
 import { styled } from "@stitches/react";
 import * as Separator from "@radix-ui/react-separator";
 import * as ContextMenu from "@radix-ui/react-context-menu";
 import { violet, mauve } from "@radix-ui/colors";
 import { useDocuments } from "../../hooks/queries/useDocuments";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const DashboardContainer = styled("div", {
   maxWidth: "1200px",
@@ -78,17 +79,32 @@ const ContextMenuContainer = ({ children, onEdit }) => {
 };
 
 const Dashboard = () => {
-  const { data } = useDocuments();
+  const { data, refetch } = useDocuments();
   const navigate = useNavigate();
-  console.log(data, "DOCS DATA");
 
   const editDocumentById = (docId: string) => {
     navigate(`/editor/${docId}`);
   };
 
+  const deleteDocument = async (docId: string) => {
+    const res = await axios.post(
+      `${import.meta.env.VITE_BASE_API}/delete/${docId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${window.localStorage.getItem("userId")}`,
+        },
+      }
+    );
+    if (res.status === 200) {
+      refetch();
+      alert(res.data.message);
+    }
+  };
+
   return (
     <DashboardContainer>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center ">
         <Heading>Documents</Heading>
         <Button onClick={() => navigate("/editor")}>
           <FilePlusIcon /> New Document
@@ -98,25 +114,33 @@ const Dashboard = () => {
         {data?.map((docsData) => {
           return (
             <ContextMenuContainer
+              key={docsData.doc_id}
               onEdit={() => editDocumentById(docsData.doc_id)}
             >
               <ListItem onClick={() => editDocumentById(docsData.doc_id)}>
-                <div className="flex justify-between w-full items-baseline">
+                <div className="flex justify-between w-full items-baseline my-10 ">
                   <div className="flex items-baseline">
                     <FileTextIcon className="mr-2" />{" "}
-                    <span className="m-w-36 whitespace-nowrap text-ellipsis overflow-hidden">
+                    <p className="m-w-36 whitespace-nowrap text-ellipsis overflow-hidden">
                       {docsData.title}
-                    </span>
-                    <span className="text-xs ml-2 text-gray-600 w-80 whitespace-nowrap text-ellipsis overflow-hidden">
+                    </p>
+                    <p className="text-xs ml-2 text-gray-600 w-80 whitespace-nowrap text-ellipsis overflow-hidden">
                       <span
                         dangerouslySetInnerHTML={{ __html: docsData.body }}
                       ></span>
-                    </span>
+                    </p>
                     <span className="ml-1">...</span>
                   </div>
                   <p className="text-xs text-gray-500">
                     {new Date(docsData.date).toDateString()}{" "}
                   </p>
+
+                  <TrashIcon
+                    onClick={(pointerEvents) => {
+                      pointerEvents.stopPropagation();
+                      deleteDocument(docsData.doc_id);
+                    }}
+                  />
                 </div>
               </ListItem>
             </ContextMenuContainer>
