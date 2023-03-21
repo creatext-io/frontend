@@ -1,31 +1,33 @@
 import React from 'react'
+
 import './LandingPageNew.css'
 
 const Scriblelandingpage = (props) => {
   return (
     <div>
       <div className="scriblelandingpage-navbar-logo-left">
-        <div className="scriblelandingpage-scriblelogo">
-          <span className="scriblelandingpage-text">Scrible</span>
-        </div>
         <div className="scriblelandingpage-navbar-container">
           <div className="scriblelandingpage-navbar-content">
-            <div className="scriblelandingpage-navbar-brand"></div>
+            <div className="scriblelandingpage-container1">
+              <div className="scriblelandingpage-navbar-brand"></div>
+              <span className="scriblelandingpage-text">
+                <span>Scrible</span>
+              </span>
+            </div>
             <div className="scriblelandingpage-navbar-menu">
-              <button type="button" className="scriblelandingpage-button">
-                <span className="scriblelandingpage-text01">About</span>
-              </button>
-              <a
-                href="mailto:tausif@scrible.page?subject=Hello 👋"
-                className="scriblelandingpage-button1"
-              >
-                <span className="scriblelandingpage-text02">Contact</span>
-              </a>
-              <a
-                href="https://scrible.page/signup"
-                className="scriblelandingpage-button2"
-              >
-                <span className="scriblelandingpage-text03">
+              <div className="scriblelandingpage-navbar-link">
+                <span className="scriblelandingpage-text02">
+                  <span>About</span>
+                </span>
+              </div>
+              <div className="scriblelandingpage-navbar-link1">
+                <span className="scriblelandingpage-text04">
+                  <span>Contact</span>
+                </span>
+              </div>
+              <div className="scriblelandingpage-navbar-link2"></div>
+              <button className="scriblelandingpage-button">
+                <span className="scriblelandingpage-text06">
                   <span>
                     Join now
                     <span
@@ -35,27 +37,27 @@ const Scriblelandingpage = (props) => {
                     />
                   </span>
                 </span>
-              </a>
+              </button>
             </div>
           </div>
         </div>
       </div>
       <div className="scriblelandingpage-hero-heading-left">
-        <div className="scriblelandingpage-container1">
-          <div className="scriblelandingpage-container2">
-            <div className="scriblelandingpage-container3">
-              <div className="scriblelandingpage-container4">
-                <span className="scriblelandingpage-text05">
-                  <br className="scriblelandingpage-text06"></br>
-                  <span className="scriblelandingpage-text07">Writing</span>
-                  <br className="scriblelandingpage-text08"></br>
-                  <span className="scriblelandingpage-text09">Reimagined</span>
+        <div className="scriblelandingpage-container2">
+          <div className="scriblelandingpage-container3">
+            <div className="scriblelandingpage-container4">
+              <div className="scriblelandingpage-container5">
+                <span className="scriblelandingpage-text08">
+                  <br className="scriblelandingpage-text09"></br>
+                  <span className="scriblelandingpage-text10">Writing</span>
+                  <br className="scriblelandingpage-text11"></br>
+                  <span className="scriblelandingpage-text12">Reimagined</span>
                   <br></br>
                   <br></br>
                 </span>
               </div>
             </div>
-            <span className="scriblelandingpage-text12">
+            <span className="scriblelandingpage-text15">
               <br></br>
               <br></br>
               <br></br>
@@ -102,9 +104,9 @@ const Scriblelandingpage = (props) => {
             <a
               href="https://scrible.page/signup"
               autoFocus
-              className="scriblelandingpage-button3"
+              className="scriblelandingpage-button1"
             >
-              <span className="scriblelandingpage-text28">
+              <span className="scriblelandingpage-text31">
                 <span>
                   Try for free -&gt;
                   <span
@@ -118,17 +120,17 @@ const Scriblelandingpage = (props) => {
           </div>
         </div>
         <video
-          src="./public/scrible-landing-page.mp4"
+          src="/playground_assets/scrible-landing-page%20-%20hd%201080p.mp4"
           loop
           muted
-          poster="./public/scrible-landing-page.mp4"
+          poster="/playground_assets/scrible-landing-page%20-%20hd%201080p.mp4"
           autoPlay
           className="scriblelandingpage-video"
         ></video>
       </div>
       <div className="scriblelandingpage-footer">
         <div className="scriblelandingpage-footerslogan">
-          <span className="scriblelandingpage-text30">
+          <span className="scriblelandingpage-text33">
             Become a better writer
           </span>
         </div>
@@ -136,9 +138,9 @@ const Scriblelandingpage = (props) => {
           <a
             href="https://scrible.page/signup"
             autoFocus
-            className="scriblelandingpage-button4"
+            className="scriblelandingpage-button2"
           >
-            <span className="scriblelandingpage-text31">
+            <span className="scriblelandingpage-text34">
               <span>
                 Try for free -&gt;
                 <span
@@ -150,11 +152,10 @@ const Scriblelandingpage = (props) => {
             </span>
           </a>
         </div>
-        <div className="scriblelandingpage-copyright">
-          <span className="scriblelandingpage-text33">
-            <span>Copyright © 2023 scrible</span>
-          </span>
-        </div>
+        <div className="scriblelandingpage-copyright"></div>
+        <span className="scriblelandingpage-text36">
+          <span>Copyright © 2023 scrible</span>
+        </span>
       </div>
     </div>
   )
