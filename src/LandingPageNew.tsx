@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import "./LandingPageNew.css";
 
-import Logo from "./assets/Logo.svg";
+import Logo from "./assets/Scrible.svg";
 import video from "../public/scrible-landing-page.mp4";
 
 const Scriblelandingpage = () => {
@@ -16,7 +16,7 @@ const Scriblelandingpage = () => {
         <div className="nav-link">
           <Link to="/about">About</Link>
           <Link to="/Contact">Contact</Link>
-          <Link to="/signup">Join now</Link>
+          <Link to="/signup">Join now </Link>
         </div>
       </nav>
       <header>
@@ -27,7 +27,7 @@ const Scriblelandingpage = () => {
           </h1>
           <h3>
             Scrible makes writing fast, fun and easy. <br /> It s AI features
-            gives you the confidence to writeanythingyou want.
+            gives you the confidence to write anything you want.
           </h3>
         </div>
         <div className="right">
