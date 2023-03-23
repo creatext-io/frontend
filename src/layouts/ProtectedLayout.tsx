@@ -1,6 +1,6 @@
 import { styled } from "@stitches/react";
 import { Navigate, useOutlet, useNavigate } from "react-router-dom";
-import Logo from "../assets/Logo.svg";
+import Logo from "../assets/scrible-editor-logo.svg";
 import { HomeIcon, ExitIcon, SymbolIcon } from "@radix-ui/react-icons";
 
 const Navbar = styled("nav", {
