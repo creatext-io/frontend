@@ -131,16 +131,18 @@ const Dashboard = () => {
                     </p>
                     <span className="ml-1">...</span>
                   </div>
-                  <p className="text-xs text-gray-500">
-                    {new Date(docsData.date).toDateString()}{" "}
-                  </p>
+                  <div className="flex gap-4">
+                    <p className="text-xs text-gray-500">
+                      {new Date(docsData.date).toDateString()}{" "}
+                    </p>
 
-                  <TrashIcon
-                    onClick={(pointerEvents) => {
-                      pointerEvents.stopPropagation();
-                      deleteDocument(docsData.doc_id);
-                    }}
-                  />
+                    <TrashIcon
+                      onClick={(pointerEvents) => {
+                        pointerEvents.stopPropagation();
+                        deleteDocument(docsData.doc_id);
+                      }}
+                    />
+                  </div>
                 </div>
               </ListItem>
             </ContextMenuContainer>
