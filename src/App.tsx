@@ -76,6 +76,7 @@ function App() {
   const keyStroke = useRef(true);
   const quillRef: any = useRef(null);
   const signalRef: any = useRef(null);
+  const originalValueRef = useRef("");
   const prevValues = useRef({
     title: "",
     content: "",
@@ -83,7 +84,8 @@ function App() {
   const navigate = useNavigate();
   const [multiLine, setMultiLine] = useState(false);
   const [title, setTitle] = useState<string>("");
-  const [isSaving, setIsSaving] = useState(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
 
   const cleanText = (str: any) => {
     return str.replace(/(<([^>]+)>)/gi, "");
@@ -159,6 +161,7 @@ function App() {
     if (docId) {
       getDocumentById(docId).then((res) => {
         console.log(res, "GET DOC BY ID");
+        originalValueRef.current = res.data.data[0].body;
         editorText.current = res.data.data[0].body;
         setTitle(res.data.data[0].title);
         prevValues.current.content = res.data.data[0].body;
@@ -176,12 +179,16 @@ function App() {
   }, []);
 
   const handleFetch = async (val: any) => {
+    // Get the current selection from the editor
     const selection = quillRef.current.unprivilegedEditor.getSelection();
     console.log(val, "VALUUEUEUE");
+    // If we haven't pressed a key yet or there is no value, then exit the function
     if (!keyStroke.current || !val) {
       return;
     }
+    // Store the text from the editor and remove any non-breaking spaces
     const text = replaceNbsps(cleanText(val));
+    // Create the payload to send to the API
     const payload = {
       text: text.trim(),
       doc_id: docId,
@@ -194,35 +201,54 @@ function App() {
     if (selection.index !== text.length) {
       return;
     }
-
-    signalRef.current = new AbortController();
-    const data = await fetch(API, {
-      signal: signalRef.current.signal,
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${window.localStorage.getItem("userId")}`,
-      },
-    });
-    const value = await data.json();
-    /*
+    if (
+      // If the text is not the same as the original value
+      text.trim() !== replaceNbsps(cleanText(originalValueRef.current)).trim()
+    ) {
+      // Create a new AbortController signal
+      signalRef.current = new AbortController();
+      // Fetch the data from the API
+      setIsFetching(true);
+      const data = await fetch(API, {
+        signal: signalRef.current.signal,
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${window.localStorage.getItem("userId")}`,
+        },
+      });
+      // Wait for the response and parse the JSON
+      const value = await data.json();
+      setIsFetching(false);
+      /*
       Checking if there is even a completion at all from the API
     */
-    if (value.completion) {
-      editorText.current = text;
-      autoComplete.current = value.completion.trim();
-      // innerHTML is <p> content here </p>
-      var n = val.lastIndexOf("</p>");
-      var str2 =
-        val.substring(0, n) +
-        `<span style="color: rgba(117, 117, 117, 0.3);" data-attr="sdsd">${value.completion.trim()}</span>` +
-        val.substring(n);
+      if (value.completion) {
+        // Store the text from the editor
+        editorText.current = text;
+        // Store the completion from the API
+        autoComplete.current = value.completion.trim();
+        // innerHTML is <p> content here </p>
+        // Get the index of the last </p> tag
+        var n = val.lastIndexOf("</p>");
+        // Replace the last </p> tag with the completion
+        var str2 =
+          val.substring(0, n) +
+          `<span style="color: rgba(117, 117, 117, 0.3);" data-attr="sdsd">${value.completion.trim()}</span>` +
+          val.substring(n);
 
-      console.log(document.querySelector(".ql-editor")?.innerHTML, "innerhtml");
-      quillRef.current.editor.clipboard.dangerouslyPasteHTML(str2, "api");
-      quillRef.current.editor.setSelection(text.length);
-      keyStroke.current = false;
+        console.log(
+          document.querySelector(".ql-editor")?.innerHTML,
+          "innerhtml"
+        );
+        // Paste the HTML into the editor
+        quillRef.current.editor.clipboard.dangerouslyPasteHTML(str2, "api");
+        // Set the selection to the end of the current text
+        quillRef.current.editor.setSelection(text.length);
+        // Set the key stroke to false
+        keyStroke.current = false;
+      }
     }
   };
 
@@ -281,15 +307,32 @@ function App() {
     quillRef.current,
     document.querySelector(".ql-editor")?.innerHTML
   );
+
+  const processName = (isSaving: boolean, isFetching: boolean): string => {
+    if (isSaving) {
+      return "Saving...";
+    }
+    if (isFetching) {
+      return "Fetching...";
+    }
+    return "";
+  };
+
   return (
     <>
       <section className="p-8">
         <div className="max-w-3xl mx-auto mb-4">
-          <div className={`flex items-center ${isSaving ? "" : "opacity-0"}`}>
+          <div
+            className={`flex items-center ${
+              isSaving || isFetching ? "" : "opacity-0"
+            }`}
+          >
             <SavingLoader className="animate-spin origin-center text-gray-400">
               <SymbolIcon />
             </SavingLoader>
-            <p className="ml-2 text-xs text-gray-400">Saving...</p>
+            <p className="ml-2 text-xs text-gray-400">
+              {processName(isSaving, isFetching)}
+            </p>
           </div>
 
           <LabelRoot htmlFor="email">Title</LabelRoot>
