@@ -15,7 +15,7 @@ const Scriblelandingpage = () => {
         </div>
         <div className="nav-link">
           <Link to="/about">About</Link>
-          <Link to="/Contact">Contact</Link>
+          <a href="mailto:tausif@scible.page">Contact</a>
           <Link to="/signup">Join now </Link>
         </div>
       </nav>
