@@ -9,6 +9,7 @@ import { styled } from "@stitches/react";
 import * as Label from "@radix-ui/react-label";
 import { v4 as uuidv4 } from "uuid";
 import { SymbolIcon } from "@radix-ui/react-icons";
+import { FeebBackForm } from "./FeedBackForm";
 
 const tools = [["bold", "italic", "underline"]];
 
@@ -292,7 +293,10 @@ function App() {
             <p className="ml-2 text-xs text-gray-400">Saving...</p>
           </div>
 
-          <LabelRoot htmlFor="email">Title</LabelRoot>
+          <div className="flex justify-between">
+            <LabelRoot htmlFor="email">Title</LabelRoot>
+            <FeebBackForm />
+          </div>
           <TitleInput
             placeholder="New Title here...."
             value={title}

@@ -31,7 +31,7 @@ const Scriblelandingpage = () => {
           </h3>
         </div>
         <div className="right">
-          <video autoPlay>
+          <video autoPlay loop muted controls={false}>
             <source src={video} type="video/mp4" />
           </video>
         </div>
